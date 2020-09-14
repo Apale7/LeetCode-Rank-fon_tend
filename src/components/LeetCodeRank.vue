@@ -6,7 +6,7 @@
         <li><em style='background-color: white; border: 0px;color: black'>用户</em><span
           style='color: black;font-size: 20px;line-height: 20px'>题数</span></li>
         <!-- <li><em>apale</em><span>100</span></li> -->
-        <li v-for='k in list'>
+        <li v-for='(k, i) in list' v-bind:class="{top3: i<3}">
           <em>{{ k.name }}</em><span>{{ k.num }}</span>
         </li>
       </ul>
@@ -16,6 +16,7 @@
 
 <script>
 import Axios from 'axios'
+
 export default {
   name: 'Rank',
   data() {

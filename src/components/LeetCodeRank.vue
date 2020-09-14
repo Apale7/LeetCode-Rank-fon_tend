@@ -7,23 +7,30 @@
           style='color: black;font-size: 20px;line-height: 20px'>题数</span></li>
         <!-- <li><em>apale</em><span>100</span></li> -->
         <li v-for='k in list'>
-          <em>{{ k[0] }}</em><span>{{ k[1] }}</span>
+          <em>{{ k.name }}</em><span>{{ k.num }}</span>
         </li>
-        {{ end }}
       </ul>
     </div>
   </div>
 </template>
 
 <script>
+import Axios from 'axios'
 export default {
   name: 'Rank',
   data() {
     return {
-      list: [['a_haw-2', 4], ['apale', 0], ['guan-shui-6', 2], ['ming-rd', 0], ['p2snt9d30z', 0]]
+      list: []
     }
+  },
+  created() {
+    Axios.get('/rank_api/list').then(res => {
+      this.list = res.data
+      this.list.sort((a, b) => {
+        return b.num - a.num
+      })
+    })
   }
-
 }
 </script>
 

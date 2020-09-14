@@ -1,0 +1,169 @@
+<template>
+  <div class='box2 helloworld' id='movie_rank'>
+    <h2>每日排行</h2>
+    <div class='inner'>
+      <ul class='rank_list'>
+        <li><em style='background-color: white; border: 0px;color: black'>用户</em><span
+          style='color: black;font-size: 20px;line-height: 20px'>题数</span></li>
+        <!-- <li><em>apale</em><span>100</span></li> -->
+        <li v-for='k in list'>
+          <em>{{ k[0] }}</em><span>{{ k[1] }}</span>
+        </li>
+        {{ end }}
+      </ul>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'Rank',
+  data() {
+    return {
+      list: [['a_haw-2', 4], ['apale', 0], ['guan-shui-6', 2], ['ming-rd', 0], ['p2snt9d30z', 0]]
+    }
+  }
+
+}
+</script>
+
+<!-- Add 'scoped' attribute to limit CSS to this component only -->
+<style scoped>
+* {
+  font-family: simsun;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-size: 12px;
+  text-align: center;
+}
+
+ul, li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: #3381BF;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+#movie_rank {
+  height: 260px;
+}
+
+.box2 {
+  border: 1px solid #ADDFF2;
+  text-align: left;
+  overflow: hidden;
+  color: #9C9C9C;
+}
+
+.box2 {
+  margin-bottom: 7px;
+}
+
+.box2 h2 {
+  background: #EEF7FE;
+  height: 22px;
+  line-height: 21px;
+  overflow-y: hidden;
+  border-bottom: 1px solid #ADDFF2;
+  color: #1974C8;
+  font-size: 20px;
+  padding: 0 8px;
+  text-align: center;
+}
+
+.box2 h2 a.more {
+  float: right;
+  text-decoration: underline;
+  /*background: url() no-repeat 100% -123px;*/
+  padding-right: 8px;
+  font-weight: normal;
+}
+
+.box2 h2 span {
+  margin-left: 5px;
+  font-weight: normal;
+  color: #B9B7B8;
+}
+
+.box2 .inner {
+  padding: 8px;
+  line-height: 18px;
+  overflow: hidden;
+  color: #3083C7;
+}
+
+.box2 a {
+  color: #3083C7;
+  white-space: nowrap;
+}
+
+.rank_list {
+  line-height: 14px;
+  margin: auto;
+  padding-top: 5px;
+}
+
+.rank_list li {
+  height: 22px;
+  width: 290px;
+  padding-left: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  margin: 0 auto
+}
+
+.rank_list li.top3 em {
+  background: #FFE4B7;
+  border: 1px solid #FFBB8B;
+  color: #FF6800;
+}
+
+.rank_list em {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 128px;
+  height: 24px;
+  border: 1px solid #B1E0F4;
+  color: #6298CC;
+  font-style: normal;
+  font-size: 20px;
+  font-family: Arial;
+  background: #E6F0FD;
+  text-align: center;
+  line-height: 20px;
+  overflow: hidden;
+}
+
+.rank_list span {
+  position: absolute;
+  width: 40px;
+  color: #B7B7B7;
+  text-align: right;
+  height: 14px;
+  background: #fff;
+  left: 110px;
+  font-size: 18px;
+}
+
+#movie_rank .rank_list span {
+  position: absolute;
+  width: 40px;
+  color: #B7B7B7;
+  text-align: right;
+  height: 14px;
+  background: #fff;
+  left: 260px;
+}
+</style>

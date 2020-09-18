@@ -2,12 +2,13 @@
   <div class='box2 helloworld' id='movie_rank'>
     <h2>每日排行</h2>
     <div class='inner'>
+      <p>分数 = easy + 5 × medium + 10 × hard</p>
       <ul class='rank_list'>
         <li><em style='background-color: white; border: 0px;color: black'>用户</em><span
-          style='color: black;font-size: 20px;line-height: 20px'>题数</span></li>
+          style='color: black;font-size: 20px;line-height: 20px'>分数</span></li>
         <!-- <li><em>apale</em><span>100</span></li> -->
-        <li v-for='(k, i) in list' v-bind:class="{top3: i<3 && k.num}">
-          <em>{{ k.name }}</em><span>{{ k.num }}</span>
+        <li v-for='(k, i) in list' v-bind:class="{top3: i<3 && k.easy + k.medium * 5 + k.hard * 10}">
+          <em>{{ k.name }}</em><span>{{ k.easy + k.medium * 5 + k.hard * 10 }}</span>
         </li>
       </ul>
     </div>
@@ -28,7 +29,9 @@ export default {
     Axios.get('/rank_api/list').then(res => {
       this.list = res.data
       this.list.sort((a, b) => {
-        return b.num - a.num
+        let x = a.easy + a.medium * 5 + a.hard * 10
+        let y = b.easy + b.medium * 5 + b.hard * 10
+        return y - x
       })
     })
   }

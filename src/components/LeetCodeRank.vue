@@ -1,41 +1,44 @@
 <template>
-  <div class='box2 helloworld' id='movie_rank'>
-    <h2>每日排行</h2>
-    <div class='inner'>
-      <p>分数 = easy + 5 × medium + 10 × hard</p>
-      <ul class='rank_list'>
-        <li><em style='background-color: white; border: 0px;color: black'>用户</em><span
-          style='color: black;font-size: 20px;line-height: 20px'>分数</span></li>
-        <!-- <li><em>apale</em><span>100</span></li> -->
-        <li v-for='(k, i) in list' v-bind:class="{top3: i<3 && k.easy + k.medium * 5 + k.hard * 10}">
-          <em>{{ k.name }}</em><span>{{ k.easy + k.medium * 5 + k.hard * 10 }}</span>
-        </li>
-      </ul>
-    </div>
+  <div>
+    <h1 style="margin: 0 auto">LeetCode Rank</h1>
+    <small style="margin: 0 auto">优先级: 7日ac > 今日ac > 总ac > 随缘</small>
+    <el-table :data="list" style="width: 100%">
+      <el-table-column prop="name" label="用户" width="180"> </el-table-column>
+      <el-table-column prop="num" label="今日ac" width="180"> </el-table-column>
+      <el-table-column prop="total_ac_7_day" label="7日ac" width="180">
+      </el-table-column>
+      <el-table-column prop="total_ac" label="总ac" width="180">
+      </el-table-column>
+    </el-table>
   </div>
 </template>
-
 <script>
-import Axios from 'axios'
+import Axios from "axios";
 
 export default {
-  name: 'Rank',
+  name: "Rank",
   data() {
     return {
-      list: []
-    }
+      list: [],
+    };
   },
   created() {
-    Axios.get('/rank_api/list').then(res => {
-      this.list = res.data
+    Axios.get("/rank_api/list").then((res) => {
+      this.list = res.data;
+      for (let i = 0; i < this.list.length; i++) {
+        this.list[i].num =
+          this.list[i].easy + this.list[i].medium + this.list[i].hard;
+      }
       this.list.sort((a, b) => {
-        let x = a.easy + a.medium * 5 + a.hard * 10
-        let y = b.easy + b.medium * 5 + b.hard * 10
-        return y - x
-      })
-    })
-  }
-}
+        if (b.total_ac_7_day != a.total_ac_7_day)
+          return b.total_ac_7_day - a.total_ac_7_day;
+        if (b.num != a.num) return b.num - a.num;
+        if (b.total_ac != a.total_ac) return b.total_ac - a.total_ac;
+        return 1;
+      });
+    });
+  },
+};
 </script>
 
 <!-- Add 'scoped' attribute to limit CSS to this component only -->
@@ -51,13 +54,14 @@ body {
   text-align: center;
 }
 
-ul, li {
+ul,
+li {
   list-style: none;
 }
 
 a {
   text-decoration: none;
-  color: #3381BF;
+  color: #3381bf;
 }
 
 a:hover {
@@ -69,10 +73,10 @@ a:hover {
 }
 
 .box2 {
-  border: 1px solid #ADDFF2;
+  border: 1px solid #addff2;
   text-align: left;
   overflow: hidden;
-  color: #9C9C9C;
+  color: #9c9c9c;
 }
 
 .box2 {
@@ -80,12 +84,12 @@ a:hover {
 }
 
 .box2 h2 {
-  background: #EEF7FE;
+  background: #eef7fe;
   height: 22px;
   line-height: 21px;
   overflow-y: hidden;
-  border-bottom: 1px solid #ADDFF2;
-  color: #1974C8;
+  border-bottom: 1px solid #addff2;
+  color: #1974c8;
   font-size: 20px;
   padding: 0 8px;
   text-align: center;
@@ -102,18 +106,18 @@ a:hover {
 .box2 h2 span {
   margin-left: 5px;
   font-weight: normal;
-  color: #B9B7B8;
+  color: #b9b7b8;
 }
 
 .box2 .inner {
   padding: 8px;
   line-height: 18px;
   overflow: hidden;
-  color: #3083C7;
+  color: #3083c7;
 }
 
 .box2 a {
-  color: #3083C7;
+  color: #3083c7;
   white-space: nowrap;
 }
 
@@ -131,13 +135,13 @@ a:hover {
   overflow: hidden;
   position: relative;
   text-align: center;
-  margin: 0 auto
+  margin: 0 auto;
 }
 
 .rank_list li.top3 em {
-  background: #FFE4B7;
-  border: 1px solid #FFBB8B;
-  color: #FF6800;
+  background: #ffe4b7;
+  border: 1px solid #ffbb8b;
+  color: #ff6800;
 }
 
 .rank_list em {
@@ -146,12 +150,12 @@ a:hover {
   top: 0;
   width: 128px;
   height: 24px;
-  border: 1px solid #B1E0F4;
-  color: #6298CC;
+  border: 1px solid #b1e0f4;
+  color: #6298cc;
   font-style: normal;
   font-size: 20px;
   font-family: Arial;
-  background: #E6F0FD;
+  background: #e6f0fd;
   text-align: center;
   line-height: 20px;
   overflow: hidden;
@@ -160,7 +164,7 @@ a:hover {
 .rank_list span {
   position: absolute;
   width: 40px;
-  color: #B7B7B7;
+  color: #b7b7b7;
   text-align: right;
   height: 14px;
   background: #fff;
@@ -168,10 +172,10 @@ a:hover {
   font-size: 18px;
 }
 
-#movie_rank .rank_list span {
+#movie_rank span {
   position: absolute;
   width: 40px;
-  color: #B7B7B7;
+  color: #b7b7b7;
   text-align: right;
   height: 14px;
   background: #fff;
